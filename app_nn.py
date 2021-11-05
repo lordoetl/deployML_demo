@@ -34,7 +34,7 @@ def predict():
         x=pd.get_dummies(x)
         #This was put here to handle extra get-dummies columns
         # Doing better prework would allow you to skip these next 2 lines
-        model_columns = ['Age', 'Embarked_C', 'Embarked_Q', 'Embarked_S', 'Embarked_nan',
+        model_columns = ['Age', 'Embarked_C', 'Embarked_Q', 'Embarked_S', 
         'Sex_male'] 
         # This line will fill any missing column with a 0.  Care should be taken that
         # won't affect your output
@@ -63,7 +63,7 @@ if __name__ == '__main__':
     except:
         port = 12345 # If you don't provide any port the port will be set to 12345
 
-    model = load_model('example.h5')
+    model = load_model('example2.h5')
     print ('Model loaded')
 
 

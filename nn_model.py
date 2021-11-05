@@ -19,6 +19,8 @@ for col, col_type in df_.dtypes.iteritems():
           df_[col].fillna(0, inplace=True)
 
 df_ohe = pd.get_dummies(df_, columns=categoricals, dummy_na=True)
+df_ohe = df_ohe.drop(columns='Sex_female')
+
 
 from sklearn.linear_model import LogisticRegression
 dependent_variable = 'Survived'
@@ -44,7 +46,7 @@ X_test_scaled = X_scaler.transform(X_test)
 
 # Define the deep learning model 
 nn_model = tf.keras.models.Sequential()
-nn_model.add(tf.keras.layers.Dense(units=16, activation="relu", input_dim=8))
+nn_model.add(tf.keras.layers.Dense(units=16, activation="relu", input_dim=5))
 nn_model.add(tf.keras.layers.Dense(units=16, activation="relu"))
 nn_model.add(tf.keras.layers.Dense(units=1, activation="sigmoid"))
 
@@ -58,4 +60,4 @@ fit_model = nn_model.fit(X_train_scaled, y_train, epochs=50)
 model_loss, model_accuracy = nn_model.evaluate(X_test_scaled,y_test,verbose=2)
 print(f"Loss: {model_loss}, Accuracy: {model_accuracy}")
 
-nn_model.save('example.h5')
+# nn_model.save('example.h5')
