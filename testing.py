@@ -18,7 +18,7 @@ model = load_model('example.h5', custom_objects={'auc': auc})
 json_in=[
     {"Age": 85, "Sex": "male", "Embarked": "S"},
     {"Age": 24, "Sex": "female", "Embarked": "C"},
-    {"Age": 3, "Sex": "male", "Embarked": "C"},
+    {"Age": 3, "Sex": "female", "Embarked": "C"},
     {"Age": 21, "Sex": "male", "Embarked": "S"}
 ]
 
@@ -37,7 +37,7 @@ if (params != None):
     x= x.reindex(columns=model_columns, fill_value=0)
 
     print ('Model columns loaded')
-    print(x.(0))
+    # print(x.(0))
     print(model.predict(x))
     # with graph.as_default():
 

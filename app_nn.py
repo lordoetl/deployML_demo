@@ -1,5 +1,5 @@
 # Load libraries
-import flask
+
 import pandas as pd
 import tensorflow as tf
 import keras
@@ -7,6 +7,7 @@ from keras.models import load_model
 import json
 from json import JSONEncoder
 import numpy
+from flask import Flask, request, jsonify
 
 #This function is used to convert the NN prediction to JSON
 class NumpyArrayEncoder(JSONEncoder):
@@ -16,7 +17,7 @@ class NumpyArrayEncoder(JSONEncoder):
         return JSONEncoder.default(self, obj)
 
 # instantiate flask 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 
 
 
@@ -26,7 +27,10 @@ def predict():
 
     #get the message from the POST (Could put test here to verify 
     # incoming data is correct format i.e. the right number of arguments)
-    params = flask.request.json
+    params = request.json
+    
+    print(f"prams are: {params}")
+    out='no params detected'
     if (params != None):
         #create dataframe from data
         x=pd.DataFrame.from_dict(params)
@@ -45,8 +49,9 @@ def predict():
         data=model.predict(x)
 
     # return a response in json format 
-    out=json.dumps(data, cls=NumpyArrayEncoder)
-    return flask.jsonify(out)  
+        out=json.dumps(data, cls=NumpyArrayEncoder)
+        # out="no params sent"
+    return jsonify(out)  
 
     # The output will be numeric (floats), you may need to build,
     # a translating function here to make that output meaningful.
